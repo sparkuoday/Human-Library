@@ -2,7 +2,7 @@ import json
 from sentence_transformers import SentenceTransformer, util
 
 # --- 1. 全域初始化 (模型與資料庫只載入一次，網頁跑起來才快) ---
-model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+model = SentenceTransformer('all-miniLM-L6-v2')
 
 # --- 🎯 核心改動：原本的單次流程，包裝成給網頁用的函式 ---
 def search_single_story(user_input: str, db):
