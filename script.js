@@ -1,5 +1,5 @@
 // 🌐 本地後端 API 的基本網址
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const API_BASE_URL = 'https://human-library.onrender.com';
 
 // ==========================================
 // 🔍 功能一：心境語義搜尋
