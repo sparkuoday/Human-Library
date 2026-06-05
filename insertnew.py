@@ -4,15 +4,21 @@ import re
 import hashlib
 import time
 from openai import OpenAI
-from sentence_transformers import SentenceTransformer
 from postgrest.exceptions import APIError
 
 # --- 1. 全域初始化 (維持你的設定，避免重複載入模型) ---
 # 這裡維持你原本圖片中的金鑰與模型設定
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-embedding_model = SentenceTransformer('all-miniLM-L6-v2')
+#embedding_model = SentenceTransformer('all-miniLM-L6-v2')
 DB_FILE = 'stories.json'
 
+
+def get_openai_embedding(text: str):
+    response = client.embeddings.create(
+        model="text-embedding-3-small",
+        input=text
+    )
+    return response.data[0].embedding
 
 # --- 2. 自動文字排版與清理功能 (完全保留你的邏輯) ---
 def parse_and_format_content(text):
@@ -100,7 +106,7 @@ def insert_single_story(raw_content: str, db):
         
     # [3/4] 計算綜合語義向量
     rich_text_for_vector = f"標題：{title}。關鍵字：{', '.join(keywords)}。內容：{formatted_content}"
-    vector_data = embedding_model.encode(rich_text_for_vector).tolist()
+    vector_data = get_openai_embedding(rich_text_for_vector)
     
     # [4/4] 生成安全的刪除憑證
     delete_hash = generate_delete_hash(title, formatted_content)

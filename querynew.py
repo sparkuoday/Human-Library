@@ -1,8 +1,25 @@
 import json
-from sentence_transformers import SentenceTransformer, util
+import math
+import os
+from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # --- 1. 全域初始化 (模型與資料庫只載入一次，網頁跑起來才快) ---
-model = SentenceTransformer('all-miniLM-L6-v2')
+#model = SentenceTransformer('all-miniLM-L6-v2')
+
+def get_openai_embedding(text: str):
+    response = client.embeddings.create(
+        model="text-embedding-3-small",
+        input=text
+    )
+    return response.data[0].embedding
+
+def cosine_similarity(v1, v2):
+    dot_product = sum(x * y for x, y in zip(v1, v2))
+    norm_a = math.sqrt(sum(x * x for x in v1))
+    norm_b = math.sqrt(sum(x * x for x in v2))
+    return dot_product / (norm_a * norm_b) if (norm_a and norm_b) else 0.0
 
 # --- 🎯 核心改動：原本的單次流程，包裝成給網頁用的函式 ---
 def search_single_story(user_input: str, db):
@@ -32,7 +49,7 @@ def search_single_story(user_input: str, db):
         return []
 
     # 4. 進行語義搜尋
-    input_vector = model.encode(user_input)
+    input_vector = get_openai_embedding(user_input)
     results = []
 
     for item in story_list:
@@ -43,7 +60,7 @@ def search_single_story(user_input: str, db):
                 current_vector = json.loads(current_vector)
                 
             # 計算餘弦相似度
-            score = util.cos_sim(input_vector, current_vector).item()
+            score = cosine_similarity(input_vector, current_vector)
             
             # 遵循你的門檻邏輯 (本機測試建議先調低，上線再調回 0.35)
             if score >= 0.01:
