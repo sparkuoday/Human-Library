@@ -9,7 +9,7 @@ def get_story_preview_for_delete(user_hash: str, db):
     根據憑證比對故事。如果找到，回傳標題與預覽；找不到則回傳 None。
     """
     user_hash = user_hash.strip().upper()
-    if not user_hash or not os.path.exists(DB_FILE):
+    if not user_hash:
         return None
 
     #try:
