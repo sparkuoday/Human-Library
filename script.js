@@ -122,25 +122,34 @@ document.getElementById('deleteBtn').addEventListener('click', async () => {
     
     try {
         // 1. 先進刪除前檢查
-        const checkResponse = await fetch(`${API_BASE_URL}/api/delete/check`, {
+        const checkResponse = await fetch(`${API_BASE_URL}delete/check`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ delete_key: deleteKey })
         });
 
         if (!checkResponse.ok) {
-            alert('❌ 找不到對應此憑證的故事！請檢查憑證是否輸入錯誤，或該故事先前已被刪除。');
-            return; // 🎯 立刻在這裡攔截，絕對不讓它往下衝到確認視窗！
+            if (checkResponse.status === 400) {
+                // 🎯 如果是 400，代表路徑正確，真的是資料庫找不到這組憑證！
+                alert('❌ 找不到對應此憑證的故事！請檢查憑證是否輸入錯誤。');
+            } else if (checkResponse.status === 404) {
+                // 🌐 如果是 404，代表網址路徑打錯了（例如少打了 /api 或是後端沒這個路由）
+                alert('❌ 網頁路徑錯誤 (404)！請檢查前端 fetch 與後端路由是否對齊。');
+            } else {
+                // 💥 其他錯誤（例如 500 伺服器爆炸）
+                alert(`❌ 連線發生未知錯誤！錯誤代碼: ${checkResponse.status}`);
+            }
+            return; // 🎯 立刻攔截，不往下走
         }
         
         const checkData = await checkResponse.json();
         
         // 🚨 【關鍵防呆】如果後端回傳 None，或者 checkData 根本是 null
         // 或是回傳的資料格式代表找不到故事，就直接攔截！
-        if (!checkData || checkData.detail) {
+        /*if (!checkData || checkData.detail) {
             alert('❌ 找不到對應此憑證的故事！請檢查憑證是否輸入錯誤。');
             return;
-        }
+        }*/
         
         // 🌟 【欄位對齊】確保讀取的是後端 `deletenew.py` 回傳的確切欄位
         const storyTitle = checkData.title || "未命名故事";
@@ -151,7 +160,7 @@ document.getElementById('deleteBtn').addEventListener('click', async () => {
         
         if (confirmDelete) {
             // 3. 使用者確定要刪，發送確認刪除請求
-            const confirmResponse = await fetch(`${API_BASE_URL}/api/delete/confirm`, {
+            const confirmResponse = await fetch(`${API_BASE_URL}delete/confirm`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ delete_key: deleteKey })

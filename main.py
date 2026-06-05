@@ -78,7 +78,7 @@ async def check_delete(request: DeleteRequest):
     if result is None:
         # 強制讓後端噴出 404 錯誤碼！這樣前端的 checkResponse.ok 就會變成 false，並被成功攔截！
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
+            status_code=status.HTTP_400_BAD_REQUEST,
             detail="找不到對應憑證的故事"
         )
         
