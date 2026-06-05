@@ -16,7 +16,7 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
     resultsContainer.innerHTML = '<p style="color:#7f8c8d; text-align:center;">🔍 AI 正在翻閱圖書館，尋找與你靈魂共鳴的故事...</p>';
     
     try {
-        const response = await fetch(`${API_BASE_URL}/search`, {
+        const response = await fetch(`${API_BASE_URL}/api/search`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text: searchText }) // 🧠 JavaScript 自動打包成合法 JSON
@@ -75,7 +75,7 @@ document.getElementById('insertBtn').addEventListener('click', async () => {
     document.getElementById('insertBtn').disabled = true;
     
     try {
-        const response = await fetch(`${API_BASE_URL}/insert`, {
+        const response = await fetch(`${API_BASE_URL}/api/insert`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content: content })
@@ -122,7 +122,7 @@ document.getElementById('deleteBtn').addEventListener('click', async () => {
     
     try {
         // 1. 先進刪除前檢查
-        const checkResponse = await fetch(`${API_BASE_URL}/delete/check`, {
+        const checkResponse = await fetch(`${API_BASE_URL}/api/delete/check`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ delete_key: deleteKey })
@@ -151,7 +151,7 @@ document.getElementById('deleteBtn').addEventListener('click', async () => {
         
         if (confirmDelete) {
             // 3. 使用者確定要刪，發送確認刪除請求
-            const confirmResponse = await fetch(`${API_BASE_URL}/delete/confirm`, {
+            const confirmResponse = await fetch(`${API_BASE_URL}/api/delete/confirm`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ delete_key: deleteKey })
