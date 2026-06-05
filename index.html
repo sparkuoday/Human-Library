@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虛擬真人圖書館</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>📚 虛擬真人圖書館</h1>
+        <p class="subtitle">說出你現在的心境，讓 AI 幫你翻閱屬於你的共鳴故事。</p>
+
+        <section class="card-section">
+            <h2>🕵️‍♂️ 尋找共鳴故事</h2>
+            <div class="search-box">
+                <input type="text" id="searchText" placeholder="請輸入你最近遇到的困境，例如：期末考爆了，覺得好難過...">
+                <button id="searchBtn">搜尋</button>
+            </div>
+            <div id="searchResults" class="results-container"></div>
+        </section>
+
+        <section class="card-section">
+            <h2>📝 匿名投稿故事</h2>
+            <div class="form-group">
+                <textarea id="insertContent" rows="6" placeholder="寫下你的故事和需要的人分享吧...（支援分段與換行）"></textarea>
+                <button id="insertBtn">送出匿名投稿</button>
+            </div>
+        </section>
+
+        <section class="card-section">
+            <h2>🔒 故事下架中心</h2>
+            <div class="delete-box">
+                <input type="text" id="deleteKey" placeholder="請輸入您投稿時獲得的 HL- 憑證">
+                <button id="deleteBtn" class="btn-danger">申請下架</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

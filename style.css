@@ -1,0 +1,164 @@
+/* 🌟 全域基本設定 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Microsoft JhengHei";
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* 📦 主容器：限制最大寬度，並置中 */
+.container {
+    width: 100%;
+    max-width: 800px;
+}
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+}
+
+/* 💳 區塊卡片化設計 */
+.card-section {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.card-section h2 {
+    margin-top: 0;
+    color: #34495e;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+/* 🔍 搜尋區塊排版 */
+.search-box {
+    display: flex;
+    gap: 10px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.search-box input:focus {
+    border-color: #3498db;
+}
+
+/* ✍️ 投稿區塊：徹底放大你的輸入框！ */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 💡 針對問題核心進行全面拓寬與加大 */
+#insertContent {
+    width: 100%;
+    box-sizing: border-box; /* 確保 padding 不會撐破外框 */
+    padding: 15px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical; /* 允許使用者手動上下拉大，不允許左右拉壞排版 */
+    min-height: 200px; /* 預設高度直接拉到 200px，就算貼長文也超舒適 */
+    outline: none;
+    transition: border 0.3s;
+}
+
+#insertContent:focus {
+    border-color: #2ecc71;
+}
+
+/* 🗑️ 刪除區塊排版 */
+.delete-box {
+    display: flex;
+    gap: 10px;
+}
+
+.delete-box input {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* 👆 按鈕樣式大美化 */
+button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    background-color: #3498db;
+    color: white;
+}
+
+button:hover {
+    filter: brightness(0.9);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* 投稿按鈕特製綠色 */
+#insertBtn {
+    background-color: #2ecc71;
+    align-self: flex-end; /* 按鈕靠右，排版更具現代感 */
+}
+
+/* 刪除按鈕特製紅色 */
+.btn-danger {
+    background-color: #e74c3c;
+}
+
+/* 📜 語義搜尋結果動態卡片樣式 */
+.story-card {
+    background: #f8f9fa;
+    border-left: 5px solid #3498db;
+    padding: 20px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 15px;
+}
+
+.story-card h3 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+}
+
+.story-card .score {
+    font-size: 0.85rem;
+    color: #95a5a6;
+    font-weight: bold;
+}
+
+.story-card p {
+    margin: 10px 0 0 0;
+    line-height: 1.6;
+    white-space: pre-wrap; /* 🌟 核心關鍵：這行能完美保留後端回傳的所有 \n 換行！ */
+}
