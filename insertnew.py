@@ -10,7 +10,7 @@ from postgrest.exceptions import APIError
 # --- 1. 全域初始化 (維持你的設定，避免重複載入模型) ---
 # 這裡維持你原本圖片中的金鑰與模型設定
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-embedding_model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+embedding_model = SentenceTransformer('all-miniLM-L6-v2')
 DB_FILE = 'stories.json'
 
 
