@@ -122,7 +122,7 @@ document.getElementById('deleteBtn').addEventListener('click', async () => {
     
     try {
         // 1. 先進刪除前檢查
-        const checkResponse = await fetch(`${API_BASE_URL}delete/check`, {
+        const checkResponse = await fetch(`${API_BASE_URL}/api/delete/check`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ delete_key: deleteKey })
@@ -160,7 +160,7 @@ document.getElementById('deleteBtn').addEventListener('click', async () => {
         
         if (confirmDelete) {
             // 3. 使用者確定要刪，發送確認刪除請求
-            const confirmResponse = await fetch(`${API_BASE_URL}delete/confirm`, {
+            const confirmResponse = await fetch(`${API_BASE_URL}/api/delete/confirm`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ delete_key: deleteKey })
